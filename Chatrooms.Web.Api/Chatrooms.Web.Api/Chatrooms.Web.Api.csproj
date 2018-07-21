@@ -10,10 +10,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Chatrooms.Web.Api.Data\Chatrooms.Web.Api.Data.csproj" />
+    <ProjectReference Include="..\Chatrooms.Web.Api.Logic\Chatrooms.Web.Api.Logic.csproj" />
+    <ProjectReference Include="..\Chatrooms.Web.Api.Models\Chatrooms.Web.Api.Models.csproj" />
   </ItemGroup>
 
 </Project>

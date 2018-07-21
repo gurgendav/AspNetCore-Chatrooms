@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatrooms.Web.Api", "Chatrooms.Web.Api\Chatrooms.Web.Api.csproj", "{47FB794D-E13D-48C6-8F83-F76073F385F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatrooms.Web.Api", "Chatrooms.Web.Api\Chatrooms.Web.Api.csproj", "{47FB794D-E13D-48C6-8F83-F76073F385F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatrooms.Web.Api.Data", "Chatrooms.Web.Api.Data\Chatrooms.Web.Api.Data.csproj", "{18083826-5988-4BC8-BC66-C212E50B85DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chatrooms.Web.Api.Data", "Chatrooms.Web.Api.Data\Chatrooms.Web.Api.Data.csproj", "{18083826-5988-4BC8-BC66-C212E50B85DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatrooms.Web.Api.Models", "Chatrooms.Web.Api.Models\Chatrooms.Web.Api.Models.csproj", "{AB29A41D-9A49-4AA3-A64B-2EB71A31B487}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatrooms.Web.Api.Logic", "Chatrooms.Web.Api.Logic\Chatrooms.Web.Api.Logic.csproj", "{D4BEEA89-167F-483B-9377-37C62AED97AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{18083826-5988-4BC8-BC66-C212E50B85DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18083826-5988-4BC8-BC66-C212E50B85DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18083826-5988-4BC8-BC66-C212E50B85DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB29A41D-9A49-4AA3-A64B-2EB71A31B487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB29A41D-9A49-4AA3-A64B-2EB71A31B487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB29A41D-9A49-4AA3-A64B-2EB71A31B487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB29A41D-9A49-4AA3-A64B-2EB71A31B487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4BEEA89-167F-483B-9377-37C62AED97AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4BEEA89-167F-483B-9377-37C62AED97AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4BEEA89-167F-483B-9377-37C62AED97AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4BEEA89-167F-483B-9377-37C62AED97AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
