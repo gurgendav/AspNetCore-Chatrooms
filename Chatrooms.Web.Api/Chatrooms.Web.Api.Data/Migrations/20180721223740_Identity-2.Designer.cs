@@ -4,14 +4,16 @@ using Chatrooms.Web.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chatrooms.Web.Api.Data.Migrations
 {
     [DbContext(typeof(ChatroomsDbContext))]
-    partial class ChatroomsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180721223740_Identity-2")]
+    partial class Identity2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

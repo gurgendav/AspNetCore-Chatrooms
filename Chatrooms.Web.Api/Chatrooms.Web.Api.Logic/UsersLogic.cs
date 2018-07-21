@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Chatrooms.Web.Api.Data.Entities;
 using Chatrooms.Web.Api.Logic.Interfaces;
 using Chatrooms.Web.Api.Logic.Interfaces.Factories;
 using Chatrooms.Web.Api.Models.User;
@@ -10,10 +11,10 @@ namespace Chatrooms.Web.Api.Logic
 {
     public class UsersLogic : IUsersLogic
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IUserFactory _userFactory;
 
-        public UsersLogic(UserManager<IdentityUser> userManager, IUserFactory userFactory)
+        public UsersLogic(UserManager<User> userManager, IUserFactory userFactory)
         {
             _userManager = userManager;
             _userFactory = userFactory;
@@ -27,7 +28,10 @@ namespace Chatrooms.Web.Api.Logic
 
         public async Task<UserModel> RegisterAsync(RegisterModel model)
         {
-            var user = new IdentityUser(model.UserName);
+            var user = new User
+            {
+                UserName = model.UserName
+            };
 
             var result = await _userManager.CreateAsync(user, model.Password);
 

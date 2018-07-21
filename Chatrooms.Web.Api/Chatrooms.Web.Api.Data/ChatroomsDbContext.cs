@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Chatrooms.Web.Api.Data
 {
-    public class ChatroomsDbContext : IdentityDbContext
+    public class ChatroomsDbContext : IdentityDbContext<User, Role, string>
     {
         public DbSet<Chatroom> Chatrooms { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }

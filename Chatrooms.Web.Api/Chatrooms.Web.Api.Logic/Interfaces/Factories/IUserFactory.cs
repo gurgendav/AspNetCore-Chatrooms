@@ -1,10 +1,10 @@
-﻿using Chatrooms.Web.Api.Models.User;
-using Microsoft.AspNetCore.Identity;
+﻿using Chatrooms.Web.Api.Data.Entities;
+using Chatrooms.Web.Api.Models.User;
 
 namespace Chatrooms.Web.Api.Logic.Interfaces.Factories
 {
     public interface IUserFactory
     {
-        UserModel Map(IdentityUser user);
+        UserModel Map(User user);
     }
 }

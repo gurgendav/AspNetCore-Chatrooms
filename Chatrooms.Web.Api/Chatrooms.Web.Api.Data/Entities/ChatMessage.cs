@@ -12,9 +12,14 @@ namespace Chatrooms.Web.Api.Data.Entities
         public int ChatroomId { get; set; }
 
         [Required]
+        public string CreatedById { get; set; }
+
+        [Required]
         public string Text { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public virtual User CreatedBy { get; set; }
 
         public virtual Chatroom Chatroom { get; set; }
     }

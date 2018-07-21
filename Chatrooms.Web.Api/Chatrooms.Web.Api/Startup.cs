@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Chatrooms.Web.Api.Options;
 using Chatrooms.Web.Api.Data;
+using Chatrooms.Web.Api.Data.Entities;
 using Chatrooms.Web.Api.Helpers;
 using Chatrooms.Web.Api.Logic;
 using Chatrooms.Web.Api.Logic.Factories;
@@ -37,7 +38,7 @@ namespace Chatrooms.Web.Api
 
             services.Configure<JwtOptions>(Configuration.GetSection("Tokens"));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+            services.AddIdentity<User, Role>(opts =>
                 {
                     opts.Password.RequireNonAlphanumeric = false;
                     opts.Password.RequireDigit = false;

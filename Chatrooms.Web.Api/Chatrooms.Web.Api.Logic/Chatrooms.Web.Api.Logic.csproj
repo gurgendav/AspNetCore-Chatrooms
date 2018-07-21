@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Chatrooms.Web.Api.Data\Chatrooms.Web.Api.Data.csproj" />
     <ProjectReference Include="..\Chatrooms.Web.Api.Models\Chatrooms.Web.Api.Models.csproj" />
   </ItemGroup>
 

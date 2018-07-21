@@ -11,7 +11,10 @@ namespace Chatrooms.Web.Api.Data.Entities
         [Required]
         public string Name { get; set; }
 
-        public int CreatedBy { get; set; }
+        [Required]
+        public string CreatedById { get; set; }
+
+        public virtual User CreatedBy { get; set; }
 
         public virtual ICollection<ChatMessage> Messages { get; set; }
     }
