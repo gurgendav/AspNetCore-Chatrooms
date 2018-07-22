@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chatrooms.Web.Api.Data;
+using Chatrooms.Web.Api.Data.Entities;
 using Chatrooms.Web.Api.Logic.Interfaces;
 using Chatrooms.Web.Api.Logic.Interfaces.Factories;
 using Chatrooms.Web.Api.Models.Chat;
@@ -47,6 +48,19 @@ namespace Chatrooms.Web.Api.Logic
             return chatroom != null ? _chatroomFactory.Map(chatroom) : null;
         }
 
+        public async Task<List<ChatMessageModel>> GetChatMessages(int roomId, int count)
+        {
+            var messages = await _dbContext.ChatMessages
+                .Where(m => m.ChatroomId == roomId)
+                .OrderByDescending(m => m.CreatedAt)
+                .Take(count)
+                .OrderBy(m => m.CreatedAt)
+                .Include(m => m.CreatedBy)
+                .ToListAsync();
+
+            return messages.Select(_chatroomFactory.Map).ToList();
+        }
+
         public async Task<ChatMessageModel> WriteMessageAsync(int chatroomId, string userId, ChatMessageModel model)
         {
             var chatroom = await _dbContext.Chatrooms.Include(c => c.Messages).SingleAsync(c => c.Id == chatroomId);
@@ -58,6 +72,8 @@ namespace Chatrooms.Web.Api.Logic
             chatroom.Messages.Add(message);
 
             await _dbContext.SaveChangesAsync();
+
+            message.CreatedBy = await _dbContext.Users.SingleAsync(u => u.Id == userId);
 
             return _chatroomFactory.Map(message);
         }

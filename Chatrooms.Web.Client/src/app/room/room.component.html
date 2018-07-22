@@ -1,0 +1,32 @@
+<app-loader [isLoading]="componentsToLoad"></app-loader>
+<h1 *ngIf="!componentsToLoad">
+  {{room?.name}} |
+  <span class="is-online">
+    <span *ngIf="isOnline">
+      <i class="fas fa-signal online"></i>
+      Online
+    </span>
+    <span *ngIf="!isOnline">
+      <i class="fas fa-signal offline"></i>
+      Offline
+    </span>
+  </span>
+</h1>
+<div class="send-message-container">
+  <input #messageInput type="text" />
+  <button [disabled]="componentsToLoad || !messageInput.value || !isOnline"
+          type="button"
+          (click)="sendMessage(messageInput)">
+    Send
+  </button>
+</div>
+<div class="chat-container" *ngIf="!componentsToLoad" #chatContainer [ngClass]="{'new-message': newMessage}">
+  <div class="message" *ngFor="let message of messages">
+    <div class="info">
+      {{message.createdBy?.userName || message.createdById}} | {{message.createdAt | date : 'medium'}}
+    </div>
+    <div class="content">
+      {{message.text}}
+    </div>
+  </div>
+</div>

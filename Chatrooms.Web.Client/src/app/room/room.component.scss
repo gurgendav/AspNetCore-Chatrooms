@@ -1,0 +1,39 @@
+:host {
+
+  h1 {
+    text-align: center;
+  }
+
+  .is-online {
+
+    .online {
+      color: greenyellow;
+    }
+
+    .offline {
+      color: red;
+    }
+  }
+
+  .chat-container {
+    margin-top: 10px;
+    border: 1px solid;
+    max-height: 500px;
+    overflow-y: auto;
+
+    .message {
+      border: 1px solid;
+      margin: 5px;
+      padding: 10px;
+      transition: background-color 0.5s;
+
+      .info {
+        color: cadetblue;
+      }
+    }
+  }
+
+  .chat-container.new-message .message:last-child {
+    background-color: beige;
+  }
+}

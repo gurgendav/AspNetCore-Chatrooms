@@ -50,7 +50,15 @@ namespace Chatrooms.Web.Api.Controllers
             return CreatedAtAction(nameof(GetRoom), new {id = chatroom.Id}, chatroom);
         }
 
-        [HttpPost("{id}/messages")]
+        [HttpGet("{id:int}/messages")]
+        public async Task<IActionResult> GetMessages(int id, int take = 20)
+        {
+            var messages = await _chatroomsLogic.GetChatMessages(id, take);
+
+            return Ok(messages);
+        }
+
+        [HttpPost("{id:int}/messages")]
         public async Task<IActionResult> WriteMessage(int id, ChatMessageModel model)
         {
             var message = await _chatroomsLogic.WriteMessageAsync(id, User.GetUserId(), model);

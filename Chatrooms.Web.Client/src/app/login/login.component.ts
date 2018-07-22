@@ -15,10 +15,13 @@ const log = new Logger('Login')
 })
 export class LoginComponent implements OnInit {
 
-  version: string = environment.version
-  error: string
-  loginForm: FormGroup
-  isLoading = false
+  public version: string = environment.version
+  public error: string
+  public loginForm: FormGroup
+  public isLoading = false
+
+  public isRegNewUser = false
+
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
@@ -27,16 +30,23 @@ export class LoginComponent implements OnInit {
     this.createForm()
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
-  login() {
+  public login(): void {
     this.isLoading = true
-    this.authenticationService.login(this.loginForm.value)
-      .pipe(finalize(() => {
-        this.loginForm.markAsPristine()
-        this.isLoading = false
-      }))
+    let req = null
+
+    if (this.isRegNewUser) {
+      req = this.authenticationService.loginAsNewUser(this.loginForm.value)
+    } else {
+      req = this.authenticationService.login(this.loginForm.value)
+    }
+
+    req.pipe(finalize(() => {
+      this.loginForm.markAsPristine()
+      this.isLoading = false
+    }))
       .subscribe(credentials => {
         log.debug(`${credentials.username} successfully logged in`)
         this.router.navigate(['/'], {replaceUrl: true})
@@ -46,23 +56,14 @@ export class LoginComponent implements OnInit {
       })
   }
 
-  setLanguage(language: string) {
-    this.i18nService.language = language
-  }
-
-  get currentLanguage(): string {
-    return this.i18nService.language
-  }
-
-  get languages(): string[] {
-    return this.i18nService.supportedLanguages
+  public toggleRegister(): void {
+    this.isRegNewUser = !this.isRegNewUser
   }
 
   private createForm() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required],
-      remember: true
+      password: ['', Validators.required]
     })
   }
 

@@ -1,25 +1,21 @@
 import {Injectable} from '@angular/core'
 import {Router, CanActivate} from '@angular/router'
 
-import {Logger} from '../logger.service'
 import {AuthenticationService} from '@app/core'
 
-const log = new Logger('AuthenticationGuard')
-
 @Injectable()
-export class AuthenticationGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
   }
 
   canActivate(): boolean {
-    if (this.authenticationService.isAuthenticated()) {
+    if (!this.authenticationService.isAuthenticated()) {
       return true
     }
 
-    log.debug('Not authenticated, redirecting...')
-    this.router.navigate(['/login'], {replaceUrl: true})
+    this.router.navigate(['/home'], {replaceUrl: true})
     return false
   }
 

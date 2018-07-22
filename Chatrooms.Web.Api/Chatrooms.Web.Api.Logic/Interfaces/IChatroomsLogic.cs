@@ -10,5 +10,6 @@ namespace Chatrooms.Web.Api.Logic.Interfaces
         Task<List<ChatroomModel>> GetChatroomsListAsync();
         Task<ChatMessageModel> WriteMessageAsync(int chatroomId, string userId, ChatMessageModel model);
         Task<ChatroomModel> FindChatroomAsync(int id);
+        Task<List<ChatMessageModel>> GetChatMessages(int roomId, int count);
     }
 }

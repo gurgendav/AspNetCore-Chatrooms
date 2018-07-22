@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core'
 import {FormsModule} from '@angular/forms'
 import {HttpClientModule} from '@angular/common/http'
 import {ServiceWorkerModule} from '@angular/service-worker'
+import {RoomModule} from '@app/room/room.module'
 import {TranslateModule} from '@ngx-translate/core'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 
@@ -26,6 +27,7 @@ import {AppRoutingModule} from './app-routing.module'
     SharedModule,
     HomeModule,
     LoginModule,
+    RoomModule,
     AppRoutingModule
   ],
   declarations: [AppComponent],

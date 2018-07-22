@@ -2,6 +2,7 @@ import {NgModule, Optional, SkipSelf} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http'
 import {RouteReuseStrategy, RouterModule} from '@angular/router'
+import {LoginGuard} from '@app/core/authentication/login.guard'
 import {TokenInterceptor} from '@app/core/http/token.interceptor'
 import {TranslateModule} from '@ngx-translate/core'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
@@ -33,6 +34,7 @@ import {CacheInterceptor} from './http/cache.interceptor'
   providers: [
     AuthenticationService,
     AuthenticationGuard,
+    LoginGuard,
     I18nService,
     HttpCacheService,
     ApiPrefixInterceptor,

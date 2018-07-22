@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core'
 import {Routes, RouterModule} from '@angular/router'
 
-import {LoginGuard} from '@app/core/authentication/login.guard'
-import {LoginComponent} from './login.component'
+import {Route} from '@app/core'
+import {RoomComponent} from '@app/room/room.component'
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]}
+  Route.withShell([
+    {path: 'room/:id', component: RoomComponent}
+  ])
 ]
 
 @NgModule({
@@ -13,5 +15,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class LoginRoutingModule {
+export class RoomRoutingModule {
 }

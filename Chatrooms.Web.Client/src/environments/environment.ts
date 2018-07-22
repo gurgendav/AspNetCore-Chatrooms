@@ -9,7 +9,8 @@ import env from './.env'
 export const environment = {
   production: false,
   version: env.npm_package_version + '-dev',
-  serverUrl: 'http://10.211.55.5:5000/api',
+  serverUrl: 'http://66ed0ca0.ngrok.io/api',
+  chatroomHubUrl: 'http://66ed0ca0.ngrok.io/hubs/chatroom',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US'

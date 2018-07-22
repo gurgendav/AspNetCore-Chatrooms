@@ -63,14 +63,18 @@ export class AuthenticationService {
       )
   }
 
+  loginAsNewUser(context: LoginContext): Observable<Credentials> {
+    return this.httpClient.post('/users', context).pipe(
+      switchMap(() => this.login(context))
+    )
+  }
+
   /**
    * Logs out the user and clear credentials.
-   * @return {Observable<boolean>} True if the user was logged out successfully.
    */
-  logout(): Observable<boolean> {
+  logout(): void  {
     // Customize credentials invalidation here
     this.setCredentials()
-    return of(true)
   }
 
   /**
