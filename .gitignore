@@ -1,6 +1,8 @@
 /dist
 /tmp
 /out-tsc
+*.pubxml
+
 
 # dependencies
 /node_modules
