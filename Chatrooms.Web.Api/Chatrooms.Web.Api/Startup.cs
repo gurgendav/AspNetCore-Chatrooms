@@ -1,8 +1,10 @@
 ﻿using System.Text;
+using System.Threading.Tasks;
 using Chatrooms.Web.Api.Options;
 using Chatrooms.Web.Api.Data;
 using Chatrooms.Web.Api.Data.Entities;
 using Chatrooms.Web.Api.Helpers;
+using Chatrooms.Web.Api.Hubs;
 using Chatrooms.Web.Api.Logic;
 using Chatrooms.Web.Api.Logic.Factories;
 using Chatrooms.Web.Api.Logic.Interfaces;
@@ -51,9 +53,13 @@ namespace Chatrooms.Web.Api
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSignalR();
+
             services.AddTransient<IAuthenticationLogic, AuthenticationLogic>();
             services.AddTransient<IUsersLogic, UsersLogic>();
             services.AddTransient<IUserFactory, UserFactory>();
+            services.AddTransient<IChatroomsLogic, ChatroomsLogic>();
+            services.AddTransient<IChatroomFactory, ChatroomFactory>();
 
             services.AddTransient<JwtTokenHelper>();
         }
@@ -72,6 +78,11 @@ namespace Chatrooms.Web.Api
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatroomHub>(ChatroomHub.Route);
+            });
         }
 
         private void ConfigureJwtBearer(IServiceCollection services)
@@ -94,6 +105,22 @@ namespace Chatrooms.Web.Api
                         ValidIssuer = config.Issuer,
                         ValidAudience = config.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Key))
+                    };
+
+                    // If request is for hub read token from URL
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments(ChatroomHub.Route))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
         }

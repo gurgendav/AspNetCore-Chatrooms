@@ -37,8 +37,7 @@ namespace Chatrooms.Web.Api.Data.Migrations
                 table: "ChatMessages",
                 column: "CreatedById",
                 principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Chatrooms_AspNetUsers_CreatedById",
