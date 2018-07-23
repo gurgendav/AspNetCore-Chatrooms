@@ -9,9 +9,9 @@
 
   <hr/>
   <div class="new-room-container">
-    <input #newRoomInput type="text" />
-    <button [disabled]="isLoading || !newRoomInput.value" type="button"
-            (click)="createNewRoom(newRoomInput.value)">
+    <input title="room name" type="text" name="roomName" [(ngModel)]="newRoomName"/>
+    <button [disabled]="isLoading || !newRoomName" type="button"
+            (click)="createNewRoom()">
       Create new room
     </button>
   </div>

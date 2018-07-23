@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import {Router} from '@angular/router'
 import {Chatroom} from '@app/model/chatroom'
 import {ChatroomService} from '@app/shared/service/chatroom.service'
@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
   public isLoading: boolean
   public chatrooms: Chatroom[] = []
 
+  public newRoomName = ''
+
   constructor(private readonly chatroomService: ChatroomService,
               private readonly router: Router) {
   }
@@ -25,9 +27,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  public createNewRoom(name: string): void {
+  public createNewRoom(): void {
     this.isLoading = true
-    this.chatroomService.createRoom(name).subscribe((room) => {
+    this.chatroomService.createRoom(this.newRoomName).subscribe((room) => {
       this.router.navigate(['/room', room.id])
       this.isLoading = false
     })

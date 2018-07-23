@@ -4,7 +4,7 @@ import {AuthenticationService} from '@app/core'
 import {ChatMessage} from '@app/model/chat-message'
 import {Chatroom} from '@app/model/chatroom'
 import {ChatroomService} from '@app/shared/service/chatroom.service'
-import {HubConnection, HubConnectionBuilder} from '@aspnet/signalr'
+import {HubConnection, HubConnectionBuilder, LogLevel} from '@aspnet/signalr'
 import {environment} from '@env/environment'
 
 @Component({
@@ -20,10 +20,13 @@ export class RoomComponent implements OnInit, OnDestroy {
   public roomId: number
 
   public isOnline = false
+  public sendingMessage = false
 
   public newMessage = false
 
   public messages: ChatMessage[] = []
+
+  public userMessage = ''
 
   @ViewChild('chatContainer')
   public chatContainer: ElementRef
@@ -63,9 +66,16 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.disconnectFromHub()
   }
 
-  public sendMessage(input: HTMLInputElement): void {
-    this.chatroomService.sendMessage(this.roomId, input.value).subscribe()
-    input.value = ''
+  public sendMessage(): void {
+    if (this.componentsToLoad || !this.userMessage || !this.isOnline || this.sendingMessage) {
+      return
+    }
+
+    this.sendingMessage = true
+    this.chatroomService.sendMessage(this.roomId, this.userMessage).subscribe(null, null, () => {
+      this.sendingMessage = false
+    })
+    this.userMessage = ''
   }
 
   private scrollToBottom(): void {
@@ -76,6 +86,7 @@ export class RoomComponent implements OnInit, OnDestroy {
 
   private async connectToHub(): Promise<void> {
     this.hubConnection = new HubConnectionBuilder()
+      .configureLogging(LogLevel.Error)
       .withUrl(environment.chatroomHubUrl, { accessTokenFactory: () => this.authService.credentials.token })
       .build()
 
@@ -88,8 +99,7 @@ export class RoomComponent implements OnInit, OnDestroy {
       this.scrollToBottom()
     })
 
-    this.hubConnection.onclose((err) => {
-      console.error(err)
+    this.hubConnection.onclose(() => {
       this.isOnline = false
     })
 
@@ -99,12 +109,13 @@ export class RoomComponent implements OnInit, OnDestroy {
 
       this.isOnline = true
     } catch (e) {
-      console.error(e)
     }
   }
 
   private async disconnectFromHub(): Promise<void> {
-    await this.hubConnection.send('LeaveChatroom', this.roomId)
-    await this.hubConnection.stop()
+    if (this.isOnline) {
+      await this.hubConnection.send('LeaveChatroom', this.roomId)
+      await this.hubConnection.stop()
+    }
   }
 }

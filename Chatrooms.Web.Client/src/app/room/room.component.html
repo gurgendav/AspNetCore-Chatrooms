@@ -13,14 +13,16 @@
   </span>
 </h1>
 <div class="send-message-container">
-  <input #messageInput type="text" />
-  <button [disabled]="componentsToLoad || !messageInput.value || !isOnline"
-          type="button"
-          (click)="sendMessage(messageInput)">
-    Send
-  </button>
+  <form (ngSubmit)="sendMessage()">
+    <input title="message" name="message" type="text" [(ngModel)]="userMessage"/>
+    <button [disabled]="componentsToLoad || !userMessage || !isOnline || sendingMessage"
+            type="submit">
+      Send
+    </button>
+    <i class="fas fa-spinner fa-spin" *ngIf="sendingMessage"></i>
+  </form>
 </div>
-<div class="chat-container" *ngIf="!componentsToLoad" #chatContainer [ngClass]="{'new-message': newMessage}">
+<div class="chat-container" [hidden]="componentsToLoad" #chatContainer [ngClass]="{'new-message': newMessage}">
   <div class="message" *ngFor="let message of messages">
     <div class="info">
       {{message.createdBy?.userName || message.createdById}} | {{message.createdAt | date : 'medium'}}
